@@ -15,7 +15,7 @@ def find_no_of_keys(m, n, arr):
 
 
 def find_min_steps(arr, m, n, collected_keys, total_keys, steps):
-    ans = int("101", 2)
+    ans = int("1000", 2)
     try:
         if m < 0 or n < 0 or m >= M or n >= N:
             return float('inf')

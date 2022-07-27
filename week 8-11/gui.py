@@ -1,4 +1,4 @@
-Jfrom tkinter import *
+from tkinter import *
 from tkinter.ttk import *
 # from turtle import right
 
