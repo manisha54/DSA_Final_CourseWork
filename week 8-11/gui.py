@@ -40,10 +40,10 @@ class LoginWindow(object):
         self.passwordEntry.pack(ipadx=8, ipady=8, padx=5, pady=5)
 
         self.login = Button(
-            master, text="Login", command=self.validateLogin)
+            master, text="LOGIN", width=25, command=self.validateLogin)
         self.login.pack(ipadx=10, ipady=10, padx=10, pady=10)
         self.signUp = Button(
-            master, text="Sign Up", command=lambda: self.validateLogin(signUp=True))
+            master, text="REGISTER", width=25,command=lambda: self.validateLogin(signUp=True))
         self.signUp.pack(ipadx=10, ipady=10, padx=10, pady=10)
 
     def validateLogin(self, signUp=False):
@@ -78,7 +78,7 @@ class mainWindow(object):
     def __init__(self, master):
         self.master = master
         self.master.title("Water Supply System")
-        self.master.geometry("205x450")
+        self.master.geometry("240x450")
 
         self.menu_label = Label(master, text="Menu")
         self.view_pipelines = Button(
