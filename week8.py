@@ -1,54 +1,45 @@
+def findSteps(arr, keys, var):
+    #assigning index value initially with 0
+    i = 0
+    j = 0
+    steps = 0
+    keysFound = ""
+    while i<len(arr) and j<len(arr[0]): #iterating only if counter is less than n and m
+        
+        if len(keysFound) == keys: #if we find the desire number of keys we will return
+            return steps-1
+        if arr[i][j] == '@': #if '@' we just move to next step
+            j += 1
+            steps+=1
+        elif arr[i][j] == '*':  #if '*' we move take another step
+            if arr[i][j+1] in var.upper():
+                j -= 1
+                steps += 1
+                continue
+            steps += 1
+            j += 1
+        elif arr[i][j] in var: #when keys is found we add it to the keysFound 
+            keysFound += arr[i][j]
+            steps += 1
+            j += 1
+        elif arr[i][j] == '#': #if wall is encountered we move to another step
+            i += 1
+            steps+=1
+        elif arr[i][j] in var.upper(): #if we encounter Lock and it is not necessary to open it
+            j -= 1
 
-##week8 questions
-from re import M
-from tkinter import N
-
-
-alpha = 'abcdefghijklmnopqrstuvwxyz'
-#possible values of Keys and Locks
-
-def find_no_of_keys(m, n, arr):
-    count = 0
-    startingPoint = (0, 0)
-    for i in range(m):
-        for j in range(n):
-            if arr[i][j] in alpha:
-                count += 1
-            if arr[i][j] == '@':
-                startingPoint = (i, j)
-
-    return count, startingPoint
-
-
-def find_min_steps(arr, m, n, collected_keys, total_keys, steps):
-    ans = int("1000", 2)
-    try:
-        if m < 0 or n < 0 or m >= M or n >= N:
-            return float('inf')
-        if arr[m][n] == "#":
-            return float('inf')
-        elif (arr[m][n] in alpha):
-            collected_keys += 1
-
-        if collected_keys == total_keys:
-            return steps
-	  #finding the recurrsive solutions
-        a = find_min_steps(arr, m, n+1, collected_keys, total_keys, steps+1) 
-        b = find_min_steps(arr, m, n-1, collected_keys, total_keys, steps+1)
-        c = find_min_steps(arr, m+1, n, collected_keys, total_keys, steps+1)
-        d = find_min_steps(arr, m-1, n, collected_keys, total_keys, steps+1)
-        return min(min(a, b), min(c, d))
-
-    except:
-        return ans | 0
-
-
+var = "abcdefghijklmnopqrstuvwxyz"
+keys = 0
 arr = [
     ['@', '*', 'a', '*', '#'],
     ['#', '#', '#', '*', '#'],
     ['b', '*', 'A', '*', 'B']
-]
+]  
 
-total_keys, staring_point = find_no_of_keys(3, 5, arr) #passing the given grid
-print(find_min_steps(arr, staring_point[0],
-      staring_point[1], 0, total_keys, 0))
+for item in arr:
+    for element in item:
+        if element in var:
+            keys += 1
+
+
+print(findSteps(arr,keys, var))

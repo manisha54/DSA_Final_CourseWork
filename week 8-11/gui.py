@@ -50,8 +50,8 @@ class LoginWindow(object):
         self.email = self.emailEntry.get()
         self.password = self.passwordEntry.get()
         if signUp:
-            Auth.signUp(self.email, self.password)
-            self.lauchMainWindow()
+            if Auth.signUp(self.email, self.password):
+                self.lauchMainWindow()
         elif Auth.login(self.email, self.password):
             self.lauchMainWindow()
         else:
