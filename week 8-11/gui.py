@@ -50,8 +50,8 @@ class LoginWindow(object):
         self.email = self.emailEntry.get()
         self.password = self.passwordEntry.get()
         if signUp:
-            if Auth.signUp(self.email, self.password):
-                self.lauchMainWindow()
+            Auth.signUp(self.email, self.password)
+            self.lauchMainWindow()
         elif Auth.login(self.email, self.password):
             self.lauchMainWindow()
         else:
@@ -78,7 +78,7 @@ class mainWindow(object):
     def __init__(self, master):
         self.master = master
         self.master.title("Water Supply System")
-        self.master.geometry("205x350")
+        self.master.geometry("205x450")
 
         self.menu_label = Label(master, text="Menu")
         self.view_pipelines = Button(
@@ -89,6 +89,8 @@ class mainWindow(object):
             master, text="Add Pipe Connection", command=self.popupAddPipe)
         self.shortest_path = Button(
             master, text="Show Shortest Path", command=self.popupShortestPath)
+        self.add_vulnerable = Button(
+            master, text="Add Vulnerable House", command=self.popupVulnerableHouse)
         self.reset = Button(
             master, text="Reset", command=WS.reset)
 
@@ -101,7 +103,9 @@ class mainWindow(object):
                            sticky=W+E, ipadx=8, ipady=8)
         self.shortest_path.grid(row=4, column=0, pady=5, padx=5,
                                 sticky=W+E, ipadx=8, ipady=8)
-        self.reset.grid(row=5, column=0, pady=50, ipadx=10, ipady=10)
+        self.add_vulnerable.grid(row=5, column=0, pady=5, padx=5,
+                                 sticky=W+E, ipadx=8, ipady=8)
+        self.reset.grid(row=6, column=0, pady=50, ipadx=10, ipady=10)
 
     # def addNewPipe(self):
     def popupShortestPath(self):
@@ -120,6 +124,13 @@ class mainWindow(object):
         self.master.wait_window(self.w.top)
         self.add_house["state"] = "normal"
         WS.addNewHouse(str(self.entryValue()).strip())
+
+    def popupVulnerableHouse(self):
+        self.w = popupWindow(self.master, "Enter Vulnerable House Number")
+        self.add_house["state"] = "disabled"
+        self.master.wait_window(self.w.top)
+        self.add_house["state"] = "normal"
+        WS.vulnerable_house(str(self.entryValue()).strip())
 
     def popupAddPipe(self):
         self.w = popupWindow(

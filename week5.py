@@ -18,7 +18,7 @@ A = [x for x in input().split()] #input of array of words
 target = list(input()) #input of target word
 
 cnt = 0 #count the number of word required from given array to form a targeted word
-while len(s)>0 and len(target)>0:#finding max substr and its corresponding word of array untill one of them is empty
+while len(A)>0 and len(target)>0:#finding max substr and its corresponding word of array untill one of them is empty
     try:
         cnt += 1
         key, val = max_match(target, A)

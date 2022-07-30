@@ -14,6 +14,14 @@ def addNewHouse(house_num, update=True):
             json.dump(appData, jsonFile)
 
 
+def removeHouse(house_num, update=True):
+    G.remove_node(house_num)
+    if update:
+        appData["nodes"].remove(house_num)
+        with open(r"week 8-11/appData.json", "w") as jsonFile:
+            json.dump(appData, jsonFile)
+
+
 def addPipeConnection(house1, house2, update=True):
     G.add_edge(house1, house2, weight=1)
     if checkCycle():
@@ -27,8 +35,7 @@ def addPipeConnection(house1, house2, update=True):
 
 
 def displayPipeSystem(plotShortestPath=False, src=0, dest=0):
-    # plt.figure(figsize=(7, 7))
-    print(f"Houses : {G.nodes}")
+    printNodes()
     plt.clf()
     pos = nx.spring_layout(G)
     nx.draw_networkx_nodes(G, pos, node_size=500, node_color="teal")
@@ -44,6 +51,23 @@ def displayPipeSystem(plotShortestPath=False, src=0, dest=0):
                                edge_color='r', width=5)
 
     plt.show()
+
+
+def printNodes():
+    for eachNode in G.nodes:
+        print(f"House {eachNode}: ", end="")
+        for each in nx.all_neighbors(G, eachNode):
+            print(each, end=" ")
+        print()
+
+
+def vulnerable_house(house):
+    neighbours = list(G.neighbors(house))
+    for each in nx.all_neighbors(G, house):
+        if each not in neighbours:
+            for i in neighbours:
+                addPipeConnection(each, i, True)
+    removeHouse(house)
 
 
 def checkCycle():

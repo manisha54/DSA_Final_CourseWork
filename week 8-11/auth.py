@@ -15,10 +15,6 @@ def login(email, password):
 
 
 def signUp(email, password):
-    if email=="Enter Email" or password =="Enter Password":
-        print("Please enter id pw")
-        return False
     with open(r"week 8-11/users.json", "w") as jsonFile:
         users["users"][email] = password
         json.dump(users, jsonFile)
-    return True

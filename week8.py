@@ -1,3 +1,9 @@
+
+##week8 questions
+from re import M
+from tkinter import N
+
+
 alpha = 'abcdefghijklmnopqrstuvwxyz'
 #possible values of Keys and Locks
 
